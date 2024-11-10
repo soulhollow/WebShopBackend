@@ -1,6 +1,6 @@
-package com.example.backend.config;
+package com.example.Fallstudie.config;
 
-import com.example.backend.model.User;
+import com.example.Fallstudie.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -30,7 +30,7 @@ public class JwtTokenUtil {
     // Token generieren
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, user.getUsername());
+        return createToken(claims, user.getEmail());
     }
 
     // Token erstellen
@@ -46,17 +46,17 @@ public class JwtTokenUtil {
 
     // Token validieren
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        final String username = extractEmail(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     // Benutzernamen aus dem Token extrahieren (Hinzugefügt)
     public String getUsernameFromToken(String token) {
-        return extractUsername(token);
+        return extractEmail(token);
     }
 
-    // Benutzernamen aus dem Token extrahieren
-    public String extractUsername(String token) {
+
+    public String extractEmail(String token) {
         return getClaimsFromToken(token).getSubject();
     }
 

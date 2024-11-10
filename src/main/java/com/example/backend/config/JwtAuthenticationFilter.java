@@ -1,6 +1,6 @@
-package com.example.backend.config;
+package com.example.Fallstudie.config;
 
-import com.example.backend.service.UserService;
+import com.example.Fallstudie.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,16 +29,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String authorizationHeader = request.getHeader("Authorization");
 
-        String username = null;
+        String email = null;
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            username = jwtTokenUtil.extractUsername(jwt);
+            try {
+                email = jwtTokenUtil.extractEmail(jwt);
+            } catch (Exception e) {
+                // Fehler beim Parsen des Tokens - Ignorieren und ohne Authentifizierung fortfahren
+                logger.warn("Ungültiger JWT Token: " + e.getMessage());
+            }
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userService.loadUserByUsername(username);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userService.loadUserByEmail(email);
 
             if (jwtTokenUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

@@ -1,6 +1,6 @@
-package com.example.backend.config;
+package com.example.Fallstudie.config;
 
-import com.example.backend.service.UserService;
+import com.example.Fallstudie.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
