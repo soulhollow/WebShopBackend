@@ -1,6 +1,6 @@
-package com.example.Fallstudie.config;
+package com.example.backend.config;
 
-import com.example.Fallstudie.model.User;
+import com.example.backend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

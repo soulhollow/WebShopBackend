@@ -1,4 +1,4 @@
-package com.example.Fallstudie.config;
+package com.example.backend.config;
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;

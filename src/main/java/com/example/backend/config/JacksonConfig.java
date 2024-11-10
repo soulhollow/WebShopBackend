@@ -1,4 +1,4 @@
-package com.example.Fallstudie.config;
+package com.example.backend.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
