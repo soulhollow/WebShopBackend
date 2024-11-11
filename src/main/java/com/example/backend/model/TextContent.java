@@ -9,9 +9,11 @@ public class TextContent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "`key`") // Backticks hinzugefügt, um das reservierte Schlüsselwort zu umgehen
+    @Column(name = "`key`", unique = true) // Backticks hinzugefügt, um das reservierte Schlüsselwort zu umgehen
     private String key;
 
+    @Lob // Annotation hinzufügen, um große Texte zu unterstützen
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     // Getters und Setters
