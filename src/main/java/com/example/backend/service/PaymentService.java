@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
-public class PaymentService {
+public class PaymentService { // nicht in benutzung war aber angedacht
 
     @Autowired
     private PaymentRepository paymentRepository;

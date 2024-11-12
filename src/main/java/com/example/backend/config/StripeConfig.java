@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class StripeConfig {
+    // nicht in benutzung war aber angedacht
 
     @Value("${stripe.secret.key}")
     private String secretKey;

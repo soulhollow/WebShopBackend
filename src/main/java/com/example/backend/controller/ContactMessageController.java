@@ -13,9 +13,11 @@ public class ContactMessageController {
     @Autowired
     private ContactMessageService contactMessageService;
 
+    // Endpunkt zum Speichern einer Kontaktanfrage
     @PostMapping("/send")
     public ResponseEntity<ContactMessage> saveContactMessage(@RequestBody ContactMessage contactMessage) {
+        // Speichert die Kontaktanfrage und gibt sie als Antwort zurück
         ContactMessage savedMessage = contactMessageService.saveContactMessage(contactMessage);
-        return ResponseEntity.ok(savedMessage);
+        return ResponseEntity.ok(savedMessage); // Gibt die gespeicherte Nachricht im JSON-Format zurück
     }
 }

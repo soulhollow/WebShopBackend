@@ -35,18 +35,19 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    // Alle Bestellungen abrufen
     @Transactional(readOnly = true)
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
+    // Bestellung nach ID abrufen
     @Transactional(readOnly = true)
     public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
 
-
-
+    // Bestellung erstellen
     @Transactional
     public Order createOrder(OrderDTO orderDTO) {
         User user = userRepository.findById(orderDTO.getUserId())
@@ -71,15 +72,18 @@ public class OrderService {
 
         return savedOrder;
     }
+
+    // Bestellungen eines Benutzers basierend auf der User-ID abrufen
     @Transactional
     public List<Order> getOrdersByUserId(Long userId) {
-        User user = userService.getUserById(userId);  // Hole den Nutzer mit der ID
+        User user = userService.getUserById(userId);
         if (user != null) {
-            return orderRepository.findByUser(user);  // Bestellungen des Nutzers abrufen
+            return orderRepository.findByUser(user);
         }
-        return List.of(); // Leere Liste zurückgeben, wenn der Nutzer nicht existiert
+        return List.of(); // Leere Liste zurückgeben, wenn der Benutzer nicht existiert
     }
 
+    // Bestellstatus aktualisieren
     @Transactional
     public Optional<Order> updateOrderStatus(Long id, String status) {
         return orderRepository.findById(id).map(order -> {
@@ -88,16 +92,17 @@ public class OrderService {
         });
     }
 
+    // Bestellungen eines Benutzers basierend auf dem Benutzernamen abrufen
     @Transactional
     public List<Order> getOrdersByUsername(String username) {
-        User user = userService.getUserByUsername(username);  // Hole den Nutzer anhand des Benutzernamens
+        User user = userService.getUserByUsername(username);
         if (user != null) {
-            return orderRepository.findByUser(user);  // Bestellungen des Nutzers abrufen
+            return orderRepository.findByUser(user);
         }
-        return List.of(); // Leere Liste zurückgeben, wenn der Nutzer nicht existiert
+        return List.of(); // Leere Liste zurückgeben, wenn der Benutzer nicht existiert
     }
 
-
+    // Bestellung löschen
     @Transactional
     public boolean deleteOrder(Long id) {
         return orderRepository.findById(id).map(order -> {
@@ -106,6 +111,7 @@ public class OrderService {
         }).orElse(false);
     }
 
+    // Gesamtbetrag der Bestellung berechnen
     private BigDecimal calculateTotalAmount(List<OrderItemDTO> orderItems) {
         return orderItems.stream()
                 .map(item -> productRepository.findById(item.getProductId())

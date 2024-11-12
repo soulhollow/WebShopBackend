@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") // Erlaubt Cross-Origin-Anfragen vom lokalen Frontend (Port 3000)
 public class OrderController {
 
     @Autowired
@@ -21,11 +21,13 @@ public class OrderController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    // Endpunkt zum Abrufen aller Bestellungen
     @GetMapping
     public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
 
+    // Endpunkt zum Abrufen einer Bestellung nach ID
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id)
@@ -33,12 +35,13 @@ public class OrderController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
+    // Endpunkt zum Erstellen einer neuen Bestellung
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDTO) {
         return ResponseEntity.ok(orderService.createOrder(orderDTO));
     }
 
+    // Endpunkt zum Aktualisieren des Status einer Bestellung
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody String status) {
         return orderService.updateOrderStatus(id, status)
@@ -46,6 +49,7 @@ public class OrderController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Endpunkt zum Löschen einer Bestellung
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         if (orderService.deleteOrder(id)) {

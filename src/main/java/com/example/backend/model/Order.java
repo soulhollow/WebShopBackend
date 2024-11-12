@@ -7,36 +7,39 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders")  // Definiert die Tabelle, die dieser Entität zugeordnet ist
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Primärschlüssel mit automatischer Generierung
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)  // Viele-zu-Eins-Beziehung mit der User-Entität
+    @JoinColumn(name = "user_id", nullable = false)  // Fremdschlüsselspalte, die den Benutzer identifiziert
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer", "handler"})  // Ignoriert bestimmte Eigenschaften bei der Serialisierung
     private User user;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20)  // Spalte für den Status der Bestellung, max. Länge 20 Zeichen
     private String orderStatus;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  // Spalte für den Gesamtbetrag der Bestellung, darf nicht null sein
     private BigDecimal totalAmount;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)  // Erstellt eine unveränderbare Spalte für das Erstellungsdatum
+    @Temporal(TemporalType.TIMESTAMP)  // Speichert das Datum und die Zeit des Erstellens
     private Date createdAt = new Date();
 
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")  // Spalte für das letzte Aktualisierungsdatum
+    @Temporal(TemporalType.TIMESTAMP)  // Speichert das Datum und die Zeit der letzten Aktualisierung
     private Date updatedAt = new Date();
 
+    // Setzt das `updatedAt`-Feld vor jeder Aktualisierung automatisch auf das aktuelle Datum
     @PreUpdate
     public void setLastUpdate() {
         this.updatedAt = new Date();
     }
+
+    // Getter und Setter für die Felder
 
     public Long getId() {
         return id;
@@ -86,4 +89,3 @@ public class Order {
         this.updatedAt = updatedAt;
     }
 }
-

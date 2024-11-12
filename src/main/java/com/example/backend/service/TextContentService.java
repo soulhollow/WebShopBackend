@@ -5,6 +5,7 @@ import com.example.backend.model.TextContent;
 import com.example.backend.repository.TextContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -13,8 +14,10 @@ public class TextContentService {
     @Autowired
     private TextContentRepository textContentRepository;
 
+    // Holt den Textinhalt basierend auf einem Schlüssel und gibt ihn als DTO zurück
     public TextContentDTO getTextContentByKey(String key) {
         Optional<TextContent> textContent = textContentRepository.findByKey(key);
+
         if (textContent.isPresent()) {
             TextContent content = textContent.get();
             return new TextContentDTO(content.getKey(), content.getContent());

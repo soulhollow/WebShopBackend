@@ -7,9 +7,6 @@ public class UserRoleId implements Serializable {
     private Long user;
     private Long role;
 
-    // equals() und hashCode() implementieren
-
-
     public UserRoleId(Long user, Long role) {
         this.user = user;
         this.role = role;

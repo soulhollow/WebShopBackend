@@ -50,8 +50,8 @@ public class JwtTokenUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    // Benutzernamen aus dem Token extrahieren (Hinzugefügt)
-    public String getUsernameFromToken(String token) {
+    // Email aus dem Token extrahieren (Hinzugefügt)
+    public String getEmailFromToken(String token) {
         return extractEmail(token);
     }
 
