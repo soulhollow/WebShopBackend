@@ -71,6 +71,11 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    public User getCurrentUserByToken(String authorizationHeader) {
+        String email = jwtTokenUtil.extractEmail(authorizationHeader);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
 
     public String authenticateUser(LoginRequest loginRequest) {
         Optional<User> userOpt = userRepository.findByUsername(loginRequest.getUsername());
